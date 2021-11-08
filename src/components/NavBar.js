@@ -10,11 +10,11 @@ export const NavBar = () => {
         alignItems="center"
         color="brand.600"
         fontFamily="fonts.100"
-        bg="transparent"
         position="relative"
         w="100%"
         top="0"
         zIndex="9999"
+        bg="brand.100"
       >
         <Box>
           <Link d="block" px="4" h="100%" transition="ease .3s all">
