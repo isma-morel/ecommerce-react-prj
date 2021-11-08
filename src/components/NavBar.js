@@ -15,6 +15,7 @@ export const NavBar = () => {
         top="0"
         zIndex="9999"
         bg="brand.100"
+        boxShadow="lg"
       >
         <Box>
           <Link d="block" px="4" h="100%" transition="ease .3s all">

@@ -20,11 +20,17 @@ export const CarouselItem = ({
       w="100%"
       d="flex"
       alignItems="center"
-      justifyContent="space-around"
+      justifyContent="center"
       py="2rem"
     >
-      <Box fontFamily="fonts.100" textAlign="left" py="20px">
-        <Heading as="h1" size="3xl" color="brand.200" fontWeight="bold">
+      <Box fontFamily="fonts.100" textAlign="left" py="20px" w="50%">
+        <Heading
+          as="h2"
+          size="3xl"
+          color="brand.200"
+          fontWeight="bold"
+          display="inline-block"
+        >
           {tittle}
           <Text color="brand.600" d="inline-block">
             {tittleStylish}
@@ -34,7 +40,7 @@ export const CarouselItem = ({
           lineHeight="24px"
           fontFamily="fonts.200"
           py="9px"
-          m="20px"
+          my="20px"
           mb="50px"
         >
           {text}
@@ -68,7 +74,15 @@ export const CarouselItem = ({
           </Button>
         </ButtonGroup>
       </Box>
-      <Box boxSize="sm">
+      <Box
+        px="2"
+        w="50%"
+        boxSize="sm"
+        textAlign="center"
+        d="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Image src={src} alt="" />
       </Box>
     </Box>
