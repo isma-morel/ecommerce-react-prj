@@ -10,12 +10,13 @@ export const NavBar = () => {
         alignItems="center"
         color="brand.600"
         fontFamily="fonts.100"
-        position="relative"
+        position="fixed"
         w="100%"
         top="0"
         zIndex="9999"
-        bg="brand.100"
+        bg="rgba(19, 106, 248, 0.8)"
         boxShadow="lg"
+        backdropFilter="saturate(180%) blur(5px)"
       >
         <Box>
           <Link d="block" px="4" h="100%" transition="ease .3s all">

@@ -32,7 +32,7 @@ export const Carrousel = () => {
   }, []);
 
   return (
-    <Box overflow="hidden">
+    <Box overflow="hidden" bg="brand.100" py="5%">
       <Box
         bg="brand.100"
         w="300%"
