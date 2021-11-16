@@ -8,6 +8,7 @@ import {
   Divider,
   Badge,
   chakra,
+  useNavigate,
 } from "@chakra-ui/react";
 
 import { ItemCount } from "./ItemCount";
@@ -19,6 +20,8 @@ export const ProductDetail = ({
   price,
   isNew,
 }) => {
+  const navigate = useNavigate();
+  const handleNavigate = (_) => navigate("/cart");
   return (
     <>
       <Container maxW="container.lg" bg="transparent">
@@ -77,6 +80,7 @@ export const ProductDetail = ({
                   borderRadius: "100%",
                   transition: ".3s ease all",
                 }}
+                onClick={handleNavigate}
               >
                 <chakra.span
                   fontFamily="fonts.100"
