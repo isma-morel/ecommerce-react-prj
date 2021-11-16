@@ -12,17 +12,17 @@ import { Link } from "react-router-dom";
 
 export const Products = ({ src, price, name, isNew, id }) => {
   return (
-    <Flex p={50} w="full" alignItems="center" justifyContent="center">
+    <Flex w="100%" alignItems="center" justifyContent="space-around">
       <Link to={`/products/${id}`}>
         <Box
           bg={useColorModeValue("gray.100", "gray.100")}
           maxW="sm"
           borderWidth="1px"
           rounded="lg"
-          shadow="lg"
+          shadow="base"
           transition=".3s ease all"
           position="relative"
-          _hover={{ boxShadow: "dark-lg" }}
+          _hover={{ boxShadow: "2xl" }}
         >
           {isNew && (
             <Circle
@@ -48,7 +48,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
                   rounded="full"
                   px="2"
                   fontSize="0.8em"
-                  colorScheme="black"
+                  bgColor="brand.100"
                 >
                   New
                 </Badge>

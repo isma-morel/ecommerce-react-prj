@@ -1,5 +1,40 @@
 import { Box, Link, IconButton, Icon } from "@chakra-ui/react";
 import { BsBox, BsPerson, BsSearch } from "react-icons/bs";
+import { Link as CustomLink } from "react-router-dom";
+
+const links = [
+  {
+    path: "/",
+    text: "HOME",
+  },
+  {
+    path: "/about",
+    text: "ABOUT",
+  },
+  {
+    path: "/shop",
+    text: "SHOP",
+  },
+  {
+    path: "/contact",
+    text: "CONTACT US",
+  },
+];
+
+const Links = ({ path, text }) => {
+  return (
+    <Link
+      as={CustomLink}
+      to={path}
+      p="4"
+      textDecoration="none"
+      transition="ease .3s all"
+      _focus={{}}
+    >
+      {text}
+    </Link>
+  );
+};
 
 export const NavBar = () => {
   return (
@@ -19,7 +54,15 @@ export const NavBar = () => {
         backdropFilter="saturate(180%) blur(5px)"
       >
         <Box>
-          <Link d="block" px="4" h="100%" transition="ease .3s all">
+          <Link
+            as={CustomLink}
+            to={"/"}
+            d="block"
+            px="4"
+            h="100%"
+            transition="ease .3s all"
+            _focus={{}}
+          >
             <Icon as={BsBox} w={8} h={8}></Icon>
           </Link>
         </Box>
@@ -29,18 +72,9 @@ export const NavBar = () => {
           alignItems="center"
           fontWeight="bold"
         >
-          <Link p="4" textDecoration="none" transition="ease .3s all">
-            HOME
-          </Link>
-          <Link p="4" textDecoration="none" transition="ease .3s all">
-            ABOUT
-          </Link>
-          <Link p="4" textDecoration="none" transition="ease .3s all">
-            SHOP
-          </Link>
-          <Link p="4" textDecoration="none" transition="ease .3s all">
-            CONTACT US
-          </Link>
+          {links.map(({ path, text }) => (
+            <Links path={path} text={text} />
+          ))}
           <IconButton
             mx="2"
             aria-label="Search database"

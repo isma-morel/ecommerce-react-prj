@@ -1,6 +1,6 @@
 import { Carrousel } from "../container/Carrousel";
 import { Products } from "../components/Products";
-import { Box, Heading, chakra, Text, Grid } from "@chakra-ui/react";
+import { Box, Heading, chakra, Text, Grid, Container } from "@chakra-ui/react";
 import { useProducts } from "../context/ProductsContext";
 import { useEffect, useState } from "react";
 
@@ -25,25 +25,31 @@ export const Home = () => {
             randomised words which don't look even slightly believable
           </Text>
         </Box>
-        <Grid
-          w="100%"
-          h="100%"
-          bgColor="brand.100"
-          g={1}
-          templateColumns="repeat(3, 1fr)"
-        >
-          {listShow &&
-            listShow.map(({ name, src, price, id, isNew }) => (
-              <Products
-                key={id}
-                name={name}
-                src={src}
-                price={price}
-                isNew={isNew}
-                id={id}
-              />
-            ))}
-        </Grid>
+        <Box w="100%" h="100%" bgColor="brand.100" overflow="hidden">
+          <Container minW="container.lg">
+            <Grid
+              gridRowGap={4}
+              bgColor="brand.100"
+              templateColumns="repeat(3, 1fr)"
+              gap={4}
+              py="30px"
+              px="2%"
+              w="100%"
+            >
+              {listShow &&
+                listShow.map(({ name, src, price, id, isNew }) => (
+                  <Products
+                    key={id}
+                    name={name}
+                    src={src}
+                    price={price}
+                    isNew={isNew}
+                    id={id}
+                  />
+                ))}
+            </Grid>
+          </Container>
+        </Box>
       </Box>
     </>
   );
