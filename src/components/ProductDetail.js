@@ -8,10 +8,10 @@ import {
   Divider,
   Badge,
   chakra,
-  useNavigate,
 } from "@chakra-ui/react";
 
 import { ItemCount } from "./ItemCount";
+import { useNavigate } from "react-router-dom";
 export const ProductDetail = ({
   description,
   src,
@@ -21,7 +21,7 @@ export const ProductDetail = ({
   isNew,
 }) => {
   const navigate = useNavigate();
-  const handleNavigate = (_) => navigate("/cart");
+  const handleNavigate = () => navigate("/cart");
   return (
     <>
       <Container maxW="container.lg" bg="transparent">
