@@ -1,18 +1,18 @@
 import { Carrousel } from "../container/Carrousel";
 import { Products } from "../components/Products";
 import { Box, Heading, chakra, Text, Grid, Container } from "@chakra-ui/react";
-import { useProducts } from "../context/ProductsContext";
+import { useApp } from "../context/AppContext";
 import { useEffect, useState } from "react";
 
 export const Home = () => {
   const [listShow, setListShow] = useState(null);
-  const product = useProducts();
+  const { products } = useApp();
   useEffect(() => {
-    product && setListShow(product.filter(({ id }) => id < 7));
-  }, [product]);
+    products && setListShow(products.filter(({ id }) => id < 7));
+  }, [products]);
 
   return (
-    <>
+    <chakra.main id="mainApp">
       <Carrousel />
       <Box bgColor="white">
         <Box textAlign="start" px="10%" pt="90px" pb="50px">
@@ -51,6 +51,6 @@ export const Home = () => {
           </Container>
         </Box>
       </Box>
-    </>
+    </chakra.main>
   );
 };

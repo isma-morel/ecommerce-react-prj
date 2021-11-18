@@ -1,6 +1,10 @@
 import { Box, Link, IconButton, Icon } from "@chakra-ui/react";
-import { BsBox, BsPerson, BsSearch } from "react-icons/bs";
+import { BsBox, BsPerson, BsSearch, BsBag } from "react-icons/bs";
 import { Link as CustomLink } from "react-router-dom";
+// import { useRef } from "react";
+import { useEffect } from "react";
+import { useApp } from "../context/AppContext";
+import { Aside } from "./Aside";
 
 const links = [
   {
@@ -37,6 +41,16 @@ const Links = ({ path, text }) => {
 };
 
 export const NavBar = () => {
+  let { toggleAction, closeAction, action } = useApp();
+  useEffect(() => {
+    if (action) {
+      const main = document.querySelector("#mainApp");
+      main.addEventListener("click", closeAction);
+      return () => {
+        main.removeEventListener("click", closeAction);
+      };
+    }
+  });
   return (
     <>
       <Box
@@ -71,14 +85,21 @@ export const NavBar = () => {
           justifyContent="center"
           alignItems="center"
           fontWeight="bold"
+          // ref={navItems}
         >
+          <IconButton
+            mx="2"
+            aria-label="Search database"
+            icon={<BsSearch />}
+          ></IconButton>
           {links.map(({ path, text }) => (
             <Links path={path} text={text} />
           ))}
           <IconButton
             mx="2"
-            aria-label="Search database"
-            icon={<BsSearch />}
+            aria-label="Cart"
+            icon={<BsBag />}
+            onClick={toggleAction}
           ></IconButton>
           <IconButton
             mx="2"
@@ -87,6 +108,7 @@ export const NavBar = () => {
           ></IconButton>
         </Box>
       </Box>
+      {<Aside />}
     </>
   );
 };

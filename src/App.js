@@ -6,12 +6,12 @@ import "@fontsource/dm-sans";
 import "@fontsource/inter";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { routes as routing } from "./routes/routes";
-import { ProductProvider } from "./context/ProductsContext";
+import { AppProvider } from "./context/AppContext";
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <ProductProvider>
+      <AppProvider>
         <BrowserRouter>
           <NavBar />
           <Routes>
@@ -20,7 +20,7 @@ function App() {
             ))}
           </Routes>
         </BrowserRouter>
-      </ProductProvider>
+      </AppProvider>
     </ChakraProvider>
   );
 }

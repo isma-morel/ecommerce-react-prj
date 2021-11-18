@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useProducts } from "../context/ProductsContext";
+import { useApp } from "../context/AppContext";
 import { ProductDetail } from "../components/ProductDetail";
 import { Container, chakra } from "@chakra-ui/react";
 
 export const ProductDetailContainer = () => {
   const productParam = useParams();
-  const data = useProducts();
-  const filterData = data
-    ? data.filter(({ id }) => productParam.id === id)
+  const { products } = useApp();
+  const filterData = products
+    ? products.filter(({ id }) => productParam.id === id)
     : null;
 
   return (
