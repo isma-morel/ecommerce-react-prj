@@ -92,8 +92,8 @@ export const NavBar = () => {
             aria-label="Search database"
             icon={<BsSearch />}
           ></IconButton>
-          {links.map(({ path, text }) => (
-            <Links path={path} text={text} />
+          {links.map(({ path, text }, index) => (
+            <Links key={index} path={path} text={text} />
           ))}
           <IconButton
             mx="2"
