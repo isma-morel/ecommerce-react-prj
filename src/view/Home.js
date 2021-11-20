@@ -3,8 +3,6 @@ import { Products } from "../components/Products";
 import { Box, Heading, chakra, Text, Grid, Container } from "@chakra-ui/react";
 import { useApp } from "../context/AppContext";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
 
 export const Home = () => {
   const [listShow, setListShow] = useState(null);
@@ -12,15 +10,6 @@ export const Home = () => {
   useEffect(() => {
     products && setListShow(products.filter(({ id }) => id < 7));
   }, [products]);
-  useEffect(() => {
-    const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, doc.data());
-      });
-    };
-    getData();
-  }, []);
 
   return (
     <chakra.main id="mainApp">

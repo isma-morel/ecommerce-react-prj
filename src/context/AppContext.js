@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 const ProductContext = createContext();
 
@@ -10,12 +12,15 @@ export const AppProvider = ({ children }) => {
   const [action, setAction] = useState(false);
 
   useEffect(() => {
-    const getProducts = async () => {
-      await fetch("https://6186e9b4cd8530001765ac12.mockapi.io/products")
-        .then((response) => response.json())
-        .then((data) => setProducts(data));
+    const data = [];
+    const getData = async () => {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+        return data.length !== 0 ? setProducts(data) : null;
+      });
     };
-    getProducts();
+    getData();
   }, []);
 
   return (

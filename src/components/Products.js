@@ -49,20 +49,22 @@ export const Products = ({ src, price, name, isNew, id }) => {
             />
           </Box>
 
-          <Box p="6">
-            <Box d="flex" alignItems="baseline">
-              {isNew && (
-                <Badge
-                  rounded="full"
-                  px="2"
-                  fontSize="0.8em"
-                  bgColor="brand.100"
-                >
-                  New
-                </Badge>
-              )}
-            </Box>
-            <Flex mt="1" justifyContent="space-between" alignContent="center">
+          <Box p="4" pos="relative">
+            {isNew && (
+              <Badge
+                rounded="full"
+                px="2"
+                fontSize="0.8em"
+                bgColor="brand.100"
+                pos="absolute"
+                right="5%"
+                top="15%"
+              >
+                New
+              </Badge>
+            )}
+
+            <Flex justifyContent="space-between" alignContent="center">
               <Box
                 fontSize="2xl"
                 fontWeight="semibold"
