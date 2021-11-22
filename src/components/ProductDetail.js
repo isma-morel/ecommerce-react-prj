@@ -8,10 +8,10 @@ import {
   Divider,
   Badge,
   chakra,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import { ItemCount } from "./ItemCount";
-import { useNavigate } from "react-router-dom";
+import { ItemCount } from './ItemCount';
+import { useNavigate } from 'react-router-dom';
 export const ProductDetail = ({
   description,
   src,
@@ -21,7 +21,7 @@ export const ProductDetail = ({
   isNew,
 }) => {
   const navigate = useNavigate();
-  const handleNavigate = () => navigate("/cart");
+  const handleNavigate = () => navigate('/cart');
   return (
     <>
       <Container maxW="container.lg" bg="transparent">
@@ -38,7 +38,13 @@ export const ProductDetail = ({
           >
             <Box>
               {isNew ? (
-                <Badge rounded="full" px="2" fontSize="1em" bgColor="brand.100">
+                <Badge
+                  rounded="full"
+                  px="2"
+                  fontSize="1em"
+                  bgColor="brand.100"
+                  color="white"
+                >
                   New
                 </Badge>
               ) : null}
@@ -65,20 +71,20 @@ export const ProductDetail = ({
                 w="25%"
                 mr="10px"
                 bgColor="brand.100"
-                _hover={{ _after: { transform: "scale(20)", opacity: "0.5" } }}
+                _hover={{ _after: { transform: 'scale(20)', opacity: '0.5' } }}
                 pos="relative"
                 color="brand.600"
                 overflow="hidden"
                 _focus={{}}
                 _after={{
                   content: '""',
-                  opacity: "0",
-                  w: "10px",
-                  h: "10px",
-                  pos: "absolute",
-                  bg: "gray",
-                  borderRadius: "100%",
-                  transition: ".3s ease all",
+                  opacity: '0',
+                  w: '10px',
+                  h: '10px',
+                  pos: 'absolute',
+                  bg: 'gray',
+                  borderRadius: '100%',
+                  transition: '.3s ease all',
                 }}
                 onClick={handleNavigate}
               >
@@ -95,20 +101,20 @@ export const ProductDetail = ({
                 w="25%"
                 mx="10px"
                 bgColor="brand.100"
-                _hover={{ _after: { transform: "scale(20)", opacity: "0.5" } }}
+                _hover={{ _after: { transform: 'scale(20)', opacity: '0.5' } }}
                 pos="relative"
                 color="brand.600"
                 overflow="hidden"
                 _focus={{}}
                 _after={{
                   content: '""',
-                  opacity: "0",
-                  w: "10px",
-                  h: "10px",
-                  pos: "absolute",
-                  bg: "gray",
-                  borderRadius: "100%",
-                  transition: ".3s ease all",
+                  opacity: '0',
+                  w: '10px',
+                  h: '10px',
+                  pos: 'absolute',
+                  bg: 'gray',
+                  borderRadius: '100%',
+                  transition: '.3s ease all',
                 }}
               >
                 <chakra.span

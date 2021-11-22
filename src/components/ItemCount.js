@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Flex,
   Button,
@@ -7,7 +7,7 @@ import {
   chakra,
   useToast,
   Heading,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 export const ItemCount = ({ numberStock }) => {
   const [count, setCount] = useState(1);
@@ -19,11 +19,11 @@ export const ItemCount = ({ numberStock }) => {
       setStock(stock - 1);
     } else {
       toast({
-        title: "Error",
-        description: "No puedes agregar más si no hay stock",
-        status: "error",
-        duration: "800",
-        isClosable: "true",
+        title: 'Error',
+        description: 'No puedes agregar más si no hay stock',
+        status: 'error',
+        duration: '800',
+        isClosable: 'true',
       });
     }
   };
@@ -33,11 +33,11 @@ export const ItemCount = ({ numberStock }) => {
       setStock(stock + 1);
     } else {
       toast({
-        title: "Error",
-        description: "No puedes comprar menos de 1 objeto",
-        status: "error",
-        duration: "800",
-        isClosable: "true",
+        title: 'Error',
+        description: 'No puedes comprar menos de 1 objeto',
+        status: 'error',
+        duration: '800',
+        isClosable: 'true',
       });
     }
   };
@@ -47,7 +47,7 @@ export const ItemCount = ({ numberStock }) => {
       <Heading as="h3" fontSize="1.3rem" fontFamily="fonts.100">
         Selecciona cuantos items quieres comprar:
       </Heading>
-      <Badge my="15px" bg="brand.100" borderRadius="5px">
+      <Badge color="white" my="15px" bg="brand.100" borderRadius="5px">
         Stock Disponible: {stock}
       </Badge>
       <Flex mb="10px" alignItems="center" justifyContent="flex-start">
@@ -63,19 +63,19 @@ export const ItemCount = ({ numberStock }) => {
           fontWeight="500"
           textAlign="center"
           onClick={handleAddCount}
-          _hover={{ _after: { transform: "scale(3.3)", opacity: "0.5" } }}
+          _hover={{ _after: { transform: 'scale(3.3)', opacity: '0.5' } }}
           pos="relative"
           overflow="hidden"
           _focus={{}}
           _after={{
             content: '""',
-            opacity: "0",
-            w: "10px",
-            h: "10px",
-            pos: "absolute",
-            bg: "gray",
-            borderRadius: "100%",
-            transition: ".3s ease all",
+            opacity: '0',
+            w: '10px',
+            h: '10px',
+            pos: 'absolute',
+            bg: 'gray',
+            borderRadius: '100%',
+            transition: '.3s ease all',
           }}
         >
           <chakra.span pos="relative" zIndex="20">
@@ -95,19 +95,19 @@ export const ItemCount = ({ numberStock }) => {
           fontWeight="500"
           textAlign="center"
           onClick={handleDecreaseCount}
-          _hover={{ _after: { transform: "scale(3.3)", opacity: "0.5" } }}
+          _hover={{ _after: { transform: 'scale(3.3)', opacity: '0.5' } }}
           pos="relative"
           overflow="hidden"
           _focus={{}}
           _after={{
             content: '""',
-            opacity: "0",
-            w: "10px",
-            h: "10px",
-            pos: "absolute",
-            bg: "gray",
-            borderRadius: "100%",
-            transition: ".3s ease all",
+            opacity: '0',
+            w: '10px',
+            h: '10px',
+            pos: 'absolute',
+            bg: 'gray',
+            borderRadius: '100%',
+            transition: '.3s ease all',
           }}
         >
           <chakra.span pos="relative" zIndex="20">

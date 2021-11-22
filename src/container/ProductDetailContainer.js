@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
-import { useApp } from "../context/AppContext";
-import { ProductDetail } from "../components/ProductDetail";
-import { Container, chakra } from "@chakra-ui/react";
+import { useParams } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
+import { ProductDetail } from '../components/ProductDetail';
+import { Container, chakra } from '@chakra-ui/react';
 
 export const ProductDetailContainer = () => {
   const productParam = useParams();
@@ -31,7 +31,7 @@ export const ProductDetailContainer = () => {
                   stock={stock}
                   isNew={isNew}
                 />
-              )
+              ),
             )}
         </Container>
       </chakra.section>

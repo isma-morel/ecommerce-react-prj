@@ -1,23 +1,38 @@
-import { Error } from "../components/Error";
-import { Home } from "../view/Home";
-import { ListProducts } from "../container/ListProducts";
-import { ProductDetailContainer } from "../container/ProductDetailContainer";
+import { Error } from '../components/Error';
+import { Home } from '../view/Home';
+import { ProductDetailContainer } from '../container/ProductDetailContainer';
+import { ProductsView } from '../view/ProductsView';
+import { CredentialsView } from '../view/CredentialsView';
+import { LoginView } from '../view/LoginView';
+import { RegisterView } from '../view/RegisterView';
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     component: <Home />,
   },
   {
-    path: "products",
-    component: <ListProducts />,
+    path: 'products',
+    component: <ProductsView />,
   },
   {
-    path: "products/:id",
+    path: 'products/:id',
     component: <ProductDetailContainer />,
   },
   {
-    path: "*",
+    path: 'auth',
+    component: <CredentialsView />,
+  },
+  {
+    path: 'auth/login',
+    component: <LoginView />,
+  },
+  {
+    path: 'auth/register',
+    component: <RegisterView />,
+  },
+  {
+    path: '*',
     component: <Error />,
   },
 ];

@@ -5,7 +5,8 @@ import {
   ButtonGroup,
   Button,
   Image,
-} from "@chakra-ui/react";
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 export const CarouselItem = ({
   src,
@@ -52,10 +53,17 @@ export const CarouselItem = ({
             rounded="md"
             w="100%"
             maxW="170px"
-            _focus={{ boxShadow: "none" }}
-            _hover={{ bg: "brand.600", color: "brand.300" }}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ bg: 'brand.600', color: 'brand.300' }}
             bg="brand.300"
             textTransform="capitalize"
+            color={useColorModeValue('white', 'white')}
+            _active={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.24)',
+                'rgba(255,255,255, 0.24)',
+              ),
+            }}
           >
             {btn1}
           </Button>
@@ -65,10 +73,17 @@ export const CarouselItem = ({
             rounded="md"
             w="100%"
             maxW="170px"
-            _focus={{ boxShadow: "none" }}
-            _hover={{ bg: "brand.600", color: "brand.300" }}
+            _focus={{ boxShadow: 'none' }}
+            _hover={{ bg: 'brand.600', color: 'brand.300' }}
             bg="brand.300"
             textTransform="capitalize"
+            color={useColorModeValue('white', 'white')}
+            _active={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.24)',
+                'rgba(255,255,255, 0.24)',
+              ),
+            }}
           >
             {btn2}
           </Button>

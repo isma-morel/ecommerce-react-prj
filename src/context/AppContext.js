@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../firebase/firebaseConfig';
 
 const ProductContext = createContext();
 
@@ -14,10 +14,10 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const data = [];
     const getData = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
+      const querySnapshot = await getDocs(collection(db, 'products'));
       querySnapshot.forEach((doc) => {
         data.push(doc.data());
-        return data.length !== 0 ? setProducts(data) : null;
+        return data.length >= 12 ? setProducts(data) : null;
       });
     };
     getData();

@@ -1,16 +1,8 @@
-import { Carrousel } from "../container/Carrousel";
-import { Products } from "../components/Products";
-import { Box, Heading, chakra, Text, Grid, Container } from "@chakra-ui/react";
-import { useApp } from "../context/AppContext";
-import { useEffect, useState } from "react";
+import { Carrousel } from '../container/Carrousel';
+import { Box, Heading, chakra, Text } from '@chakra-ui/react';
+import { ListProducts } from '../container/ListProducts';
 
 export const Home = () => {
-  const [listShow, setListShow] = useState(null);
-  const { products } = useApp();
-  useEffect(() => {
-    products && setListShow(products.filter(({ id }) => id < 7));
-  }, [products]);
-
   return (
     <chakra.main id="mainApp">
       <Carrousel />
@@ -22,33 +14,11 @@ export const Home = () => {
           <Text color="brand.300" fontSize="1.1rem">
             There are many variations of passages of Lorem Ipsum available, but
             the majority have suffered alteration in some form, by injected
-            randomised words which don't look even slightly believable
+            randomised words which dont look even slightly believable
           </Text>
         </Box>
         <Box w="100%" h="100%" bgColor="brand.100" overflow="hidden">
-          <Container minW="container.lg">
-            <Grid
-              gridRowGap={4}
-              bgColor="brand.100"
-              templateColumns="repeat(3, 1fr)"
-              gap={4}
-              py="30px"
-              px="2%"
-              w="100%"
-            >
-              {listShow &&
-                listShow.map(({ name, src, price, id, isNew }) => (
-                  <Products
-                    key={id}
-                    name={name}
-                    src={src}
-                    price={price}
-                    isNew={isNew}
-                    id={id}
-                  />
-                ))}
-            </Grid>
-          </Container>
+          <ListProducts />
         </Box>
       </Box>
     </chakra.main>

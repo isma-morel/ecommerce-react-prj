@@ -7,8 +7,8 @@ import {
   useColorModeValue,
   chakra,
   Tooltip,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export const Products = ({ src, price, name, isNew, id }) => {
   return (
@@ -20,7 +20,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
     >
       <Link to={`/products/${id}`}>
         <Box
-          bg={useColorModeValue("gray.100", "gray.100")}
+          bg={useColorModeValue('gray.100', 'gray.100')}
           maxW="300px"
           borderWidth="1px"
           rounded="lg"
@@ -45,7 +45,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
               alt={`Picture of ${name}`}
               roundedTop="lg"
               transition=".5s ease all"
-              sx={{ ".productHover:hover &": { transform: "scale(1.05)" } }}
+              sx={{ '.productHover:hover &': { transform: 'scale(1.05)' } }}
             />
           </Box>
 
@@ -59,6 +59,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
                 pos="absolute"
                 right="5%"
                 top="15%"
+                color="white"
               >
                 New
               </Badge>
@@ -71,27 +72,27 @@ export const Products = ({ src, price, name, isNew, id }) => {
                 as="h4"
                 lineHeight="tight"
                 isTruncated
-                color={useColorModeValue("black", "black")}
+                color={useColorModeValue('black', 'black')}
               >
                 {name}
               </Box>
               <Tooltip
                 label="Add to cart"
                 bg="white"
-                placement={"top"}
-                color={"gray.800"}
-                fontSize={"1.2em"}
+                placement={'top'}
+                color={'gray.800'}
+                fontSize={'1.2em'}
               >
-                <chakra.a href={"#"} display={"flex"}></chakra.a>
+                <chakra.a href={'#'} display={'flex'}></chakra.a>
               </Tooltip>
             </Flex>
 
             <Flex justifyContent="space-between" alignContent="center">
               <Box
                 fontSize="2xl"
-                color={useColorModeValue("gray.800", "gray.800")}
+                color={useColorModeValue('gray.800', 'gray.800')}
               >
-                <Box as="span" color={"gray.600"} fontSize="lg">
+                <Box as="span" color={'gray.600'} fontSize="lg">
                   $
                 </Box>
                 {price}

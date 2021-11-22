@@ -1,27 +1,33 @@
-import { Box, Link, IconButton, Icon } from "@chakra-ui/react";
-import { BsBox, BsPerson, BsSearch, BsBag } from "react-icons/bs";
-import { Link as CustomLink } from "react-router-dom";
+import {
+  Box,
+  Link,
+  IconButton,
+  Icon,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { BsBox, BsPerson, BsSearch, BsBag } from 'react-icons/bs';
+import { Link as CustomLink, useNavigate } from 'react-router-dom';
 // import { useRef } from "react";
-import { useEffect } from "react";
-import { useApp } from "../context/AppContext";
-import { Aside } from "./Aside";
+import { useEffect } from 'react';
+import { useApp } from '../context/AppContext';
+import { Aside } from './Aside';
 
 const links = [
   {
-    path: "/",
-    text: "HOME",
+    path: '/',
+    text: 'HOME',
   },
   {
-    path: "/about",
-    text: "ABOUT",
+    path: '/about',
+    text: 'ABOUT',
   },
   {
-    path: "/shop",
-    text: "SHOP",
+    path: '/products',
+    text: 'PRODUCTS',
   },
   {
-    path: "/contact",
-    text: "CONTACT US",
+    path: '/contact',
+    text: 'CONTACT US',
   },
 ];
 
@@ -44,13 +50,15 @@ export const NavBar = () => {
   let { toggleAction, closeAction, action } = useApp();
   useEffect(() => {
     if (action) {
-      const main = document.querySelector("#mainApp");
-      main.addEventListener("click", closeAction);
+      const main = document.querySelector('#mainApp');
+      main.addEventListener('click', closeAction);
       return () => {
-        main.removeEventListener("click", closeAction);
+        main.removeEventListener('click', closeAction);
       };
     }
   });
+  const navigate = useNavigate();
+  const redirectLogin = () => navigate('/auth');
   return (
     <>
       <Box
@@ -70,7 +78,7 @@ export const NavBar = () => {
         <Box>
           <Link
             as={CustomLink}
-            to={"/"}
+            to={'/'}
             d="block"
             px="4"
             h="100%"
@@ -91,6 +99,22 @@ export const NavBar = () => {
             mx="2"
             aria-label="Search database"
             icon={<BsSearch />}
+            _active={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.24)',
+                'rgba(255,255,255, 0.24)',
+              ),
+            }}
+            _hover={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.16)',
+                'rgba(255,255,255, 0.16)',
+              ),
+            }}
+            bg={useColorModeValue(
+              'rgba(255,255,255, 0.08)',
+              'rgba(255,255,255, 0.08)',
+            )}
           ></IconButton>
           {links.map(({ path, text }, index) => (
             <Links key={index} path={path} text={text} />
@@ -99,12 +123,45 @@ export const NavBar = () => {
             mx="2"
             aria-label="Cart"
             icon={<BsBag />}
+            _active={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.24)',
+                'rgba(255,255,255, 0.24)',
+              ),
+            }}
+            _hover={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.16)',
+                'rgba(255,255,255, 0.16)',
+              ),
+            }}
             onClick={toggleAction}
+            bg={useColorModeValue(
+              'rgba(255,255,255, 0.08)',
+              'rgba(255,255,255, 0.08)',
+            )}
           ></IconButton>
           <IconButton
             mx="2"
             aria-label="Person"
             icon={<BsPerson />}
+            onClick={redirectLogin}
+            _active={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.24)',
+                'rgba(255,255,255, 0.24)',
+              ),
+            }}
+            _hover={{
+              background: useColorModeValue(
+                'rgba(255,255,255, 0.16)',
+                'rgba(255,255,255, 0.16)',
+              ),
+            }}
+            bg={useColorModeValue(
+              'rgba(255,255,255, 0.08)',
+              'rgba(255,255,255, 0.08)',
+            )}
           ></IconButton>
         </Box>
       </Box>

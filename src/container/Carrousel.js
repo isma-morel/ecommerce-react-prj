@@ -1,7 +1,7 @@
-import { Box } from "@chakra-ui/react";
-import { CarrouselButton } from "../components/CarrouselButton";
-import { useState, useEffect } from "react";
-import { CarouselItem } from "../components/CarouselItem";
+import { Box } from '@chakra-ui/react';
+import { CarrouselButton } from '../components/CarrouselButton';
+import { useState, useEffect } from 'react';
+import { CarouselItem } from '../components/CarouselItem';
 
 export const Carrousel = () => {
   const [carousel, setCarousel] = useState(null);
@@ -24,7 +24,7 @@ export const Carrousel = () => {
   //API Rest
   useEffect(() => {
     const getData = async () => {
-      await fetch("https://6186e9b4cd8530001765ac12.mockapi.io/carousel")
+      await fetch('https://6186e9b4cd8530001765ac12.mockapi.io/carousel')
         .then((response) => response.json())
         .then((data) => setCarousel(data));
     };
@@ -68,7 +68,7 @@ export const Carrousel = () => {
                   btn1={btn1}
                   btn2={btn2}
                 />
-              )
+              ),
             )}
         </Box>
       </Box>
