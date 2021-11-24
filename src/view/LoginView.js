@@ -10,9 +10,47 @@ import {
   Button,
   Heading,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
+import { auth } from '../firebase/firebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export const LoginView = () => {
+  const [credentials, setCredentials] = useState({
+    email: '',
+    password: '',
+  });
+  const toast = useToast();
+  const handleEmail = ({ target }) => {
+    const { value } = target;
+    setCredentials({ ...credentials, email: value });
+  };
+  const handlePassword = ({ target }) => {
+    const { value } = target;
+    setCredentials({
+      ...credentials,
+      password: value,
+    });
+  };
+  const handleLogin = () => {
+    const { email, password } = credentials;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user, userCredential);
+      })
+      .catch((err) => {
+        let errMsg = err.message.replace('Firebase:', '');
+        errMsg = errMsg.replace('auth/', '');
+        toast({
+          title: `${errMsg}`,
+          status: 'error',
+          duration: 1000,
+          isClosable: true,
+        });
+      });
+  };
   return (
     <Flex
       minH={'100vh'}
@@ -41,6 +79,7 @@ export const LoginView = () => {
                 placeholder="email"
                 _placeholder={{ color: 'black' }}
                 type="email"
+                onChange={handleEmail}
               />
             </FormControl>
             <FormControl id="password">
@@ -50,6 +89,7 @@ export const LoginView = () => {
                 borderColor="gray.300"
                 type="password"
                 placeholder="password"
+                onChange={handlePassword}
                 _placeholder={{ color: 'black' }}
               />
             </FormControl>
@@ -71,6 +111,7 @@ export const LoginView = () => {
                 _hover={{
                   bg: 'blue.500',
                 }}
+                onClick={handleLogin}
               >
                 Sign in
               </Button>

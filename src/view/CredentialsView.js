@@ -28,7 +28,7 @@ const LoginRegister = ({ path, text }) => {
 export const CredentialsView = () => {
   return (
     <>
-      <chakra.main id="mainApp" minH="100vh" w="100%" bg="brand.100">
+      <chakra.section minH="100vh" w="100%" bg="brand.100">
         <Container minW="container.lg">
           <Flex
             justifyContent="center"
@@ -42,7 +42,7 @@ export const CredentialsView = () => {
             ))}
           </Flex>
         </Container>
-      </chakra.main>
+      </chakra.section>
     </>
   );
 };

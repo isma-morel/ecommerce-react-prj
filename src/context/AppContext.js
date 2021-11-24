@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const ProductContext = createContext();
 
@@ -10,6 +11,19 @@ export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState(null);
   //ASIDE
   const [action, setAction] = useState(false);
+  //auth status
+  // const [status, setStatus] = useState(null);
+
+  // onAuthStateChanged(auth, (user) => {
+  //   console.log(user);
+  //   user ? setStatus(user) : setStatus(false);
+  // });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(auth);
+      user ? console.log(true) : console.log(false);
+    });
+  }, []);
 
   useEffect(() => {
     const data = [];
@@ -30,6 +44,7 @@ export const AppProvider = ({ children }) => {
         action,
         toggleAction: () => setAction(!action),
         closeAction: () => setAction(false),
+        // status,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import { ListProducts } from '../container/ListProducts';
 
 export const Home = () => {
   return (
-    <chakra.main id="mainApp">
+    <>
       <Carrousel />
       <Box bgColor="white">
         <Box textAlign="start" px="10%" pt="90px" pb="50px">
@@ -21,6 +21,6 @@ export const Home = () => {
           <ListProducts />
         </Box>
       </Box>
-    </chakra.main>
+    </>
   );
 };

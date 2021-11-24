@@ -13,11 +13,13 @@ import {
   Text,
   useColorModeValue,
   Link,
-  // useToast,
+  useToast,
 } from '@chakra-ui/react';
 import { Link as CustomLink } from 'react-router-dom';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebaseConfig';
 const symbolRegx = /[,.-:;]/gi;
 const numberRegx = /[0-9]/gi;
 
@@ -29,9 +31,9 @@ export const RegisterView = () => {
     email: '',
     password: '',
   });
-  // const toast = useToast();
+  const toast = useToast();
 
-  const handleFirstName = ({ target }) => {
+  const handlerFirstName = ({ target }) => {
     let { value } = target;
     value = value.trim().replace(symbolRegx, '');
     value = value.replace(numberRegx, '');
@@ -83,6 +85,34 @@ export const RegisterView = () => {
       });
     }
   };
+  const handleClickRegister = async () => {
+    const { firstName, lastName, email, password } = credentials;
+    if ((firstName, lastName, email, password === '')) {
+      toast({
+        title: 'Credentials Error',
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+      });
+    } else {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          let errMsg = error.message.replace('Firebase:', '');
+          errMsg = errMsg.replace('auth/', '');
+          toast({
+            title: `${errMsg}`,
+            status: 'error',
+            duration: 1000,
+            isClosable: true,
+          });
+        });
+    }
+  };
   return (
     <Flex
       minH={'100vh'}
@@ -123,7 +153,7 @@ export const RegisterView = () => {
                     bg="gray.100"
                     borderColor="gray.300"
                     _placeholder={{ color: 'black' }}
-                    onChange={handleFirstName}
+                    onChange={handlerFirstName}
                     type="text"
                   />
                 </FormControl>
@@ -184,7 +214,7 @@ export const RegisterView = () => {
                 _hover={{
                   bg: 'blue.500',
                 }}
-                onClick={() => console.log(credentials)}
+                onClick={handleClickRegister}
               >
                 Sign up
               </Button>

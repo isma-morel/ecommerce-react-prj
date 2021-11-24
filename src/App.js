@@ -6,17 +6,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routes as routing } from './routes/routes';
 import { AppProvider } from './context/AppContext';
 import { Footer } from './components/Footer';
+import { chakra } from '@chakra-ui/react';
 
 function App() {
   return (
     <AppProvider>
       <BrowserRouter>
         <NavBar />
-        <Routes>
-          {routing.map(({ path, component }, index) => (
-            <Route key={index} exact path={path} element={component} />
-          ))}
-        </Routes>
+        <chakra.main id="mainApp">
+          <Routes>
+            {routing.map(({ path, component }, index) => (
+              <Route key={index} exact path={path} element={component} />
+            ))}
+          </Routes>
+        </chakra.main>
         <Footer />
       </BrowserRouter>
     </AppProvider>
