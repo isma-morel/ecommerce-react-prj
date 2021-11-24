@@ -29,3 +29,4 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 export { analytics, db, auth };
+"x"
