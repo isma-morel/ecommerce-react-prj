@@ -13,59 +13,158 @@ import {
   Text,
   useColorModeValue,
   Link,
+  // useToast,
 } from '@chakra-ui/react';
 import { Link as CustomLink } from 'react-router-dom';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+const symbolRegx = /[,.-:;]/gi;
+const numberRegx = /[0-9]/gi;
 
 export const RegisterView = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [credentials, setCredentials] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+  // const toast = useToast();
 
+  const handleFirstName = ({ target }) => {
+    let { value } = target;
+    value = value.trim().replace(symbolRegx, '');
+    value = value.replace(numberRegx, '');
+    target.value = value;
+    setCredentials({
+      ...credentials,
+      firstName: value,
+    });
+    console.log(credentials);
+  };
+  const handleLastName = ({ target }) => {
+    let { value } = target;
+    value = value.trim().replace(symbolRegx, '');
+    value = value.replace(numberRegx, '');
+    target.value = value;
+    setCredentials({
+      ...credentials,
+      lastName: value,
+    });
+    console.log(credentials);
+  };
+  const handleEmail = ({ target }) => {
+    let { value } = target;
+    const emailRegx =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (value.match(emailRegx)) {
+      setCredentials({
+        ...credentials,
+        email: value,
+      });
+    } else {
+      setCredentials({
+        ...credentials,
+        email: '',
+      });
+    }
+  };
+  const handlePassword = ({ target }) => {
+    let { value } = target;
+    if (value.match(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)) {
+      setCredentials({
+        ...credentials,
+        password: value,
+      });
+    } else {
+      setCredentials({
+        ...credentials,
+        password: '',
+      });
+    }
+  };
   return (
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
+      pt="20px"
+      bg={useColorModeValue('brand.100', 'brand.100')}
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Heading color="white" fontSize={'4xl'} textAlign={'center'}>
+          Password Requirements
+        </Heading>
+        <Text color="white" fontSize={'2xl'} textAlign={'center'}>
+          The password must be between 8 and 16 characters, at least one digit,
+          at least one lower case and at least one upper case. CANT have other
+          symbols.
+        </Text>
+      </Stack>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
+          <Heading color="white" fontSize={'4xl'} textAlign={'center'}>
             Sign up
           </Heading>
         </Stack>
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={useColorModeValue('white', 'white')}
           boxShadow={'lg'}
           p={8}
+          color="black"
         >
           <Stack spacing={4}>
             <HStack>
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    bg="gray.100"
+                    borderColor="gray.300"
+                    _placeholder={{ color: 'black' }}
+                    onChange={handleFirstName}
+                    type="text"
+                  />
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="lastName">
+                <FormControl id="lastName" isRequired>
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    bg="gray.100"
+                    borderColor="gray.300"
+                    _placeholder={{ color: 'black' }}
+                    onChange={handleLastName}
+                    type="text"
+                  />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                bg="gray.100"
+                borderColor="gray.300"
+                _placeholder={{ color: 'black' }}
+                type="email"
+                onChange={handleEmail}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input
+                  bg="gray.100"
+                  borderColor="gray.300"
+                  _placeholder={{ color: 'black' }}
+                  onChange={handlePassword}
+                  type={showPassword ? 'text' : 'password'}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
+                    color="black"
                     onClick={() =>
                       setShowPassword((showPassword) => !showPassword)
                     }
@@ -81,9 +180,11 @@ export const RegisterView = () => {
                 size="lg"
                 bg={'blue.400'}
                 color={'white'}
+                _active={{ bg: 'blue.600' }}
                 _hover={{
                   bg: 'blue.500',
                 }}
+                onClick={() => console.log(credentials)}
               >
                 Sign up
               </Button>

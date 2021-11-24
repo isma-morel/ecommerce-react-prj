@@ -17,7 +17,7 @@ const fonts = {
   },
 };
 const config = {
-  initialColorMode: 'dark',
+  initialColorMode: 'light',
   useSystemColorMode: false,
 };
 

@@ -13,6 +13,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+    "chokidar": "^3.5.2",
     "firebase": "^9.4.1",
     "framer-motion": "^4.1.17",
     "react": "^17.0.2",
