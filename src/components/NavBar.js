@@ -47,6 +47,7 @@ const Links = ({ path, text }) => {
 };
 
 export const NavBar = () => {
+  const { status } = useApp();
   let { toggleAction, closeAction, action } = useApp();
   useEffect(() => {
     if (action) {
@@ -58,7 +59,8 @@ export const NavBar = () => {
     }
   });
   const navigate = useNavigate();
-  const redirectLogin = () => navigate('/auth');
+  const redirectLogin = () =>
+    status ? navigate('/profile') : navigate('/auth');
   return (
     <>
       <Box

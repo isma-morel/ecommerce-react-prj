@@ -12,16 +12,11 @@ export const AppProvider = ({ children }) => {
   //ASIDE
   const [action, setAction] = useState(false);
   //auth status
-  // const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(null);
 
-  // onAuthStateChanged(auth, (user) => {
-  //   console.log(user);
-  //   user ? setStatus(user) : setStatus(false);
-  // });
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(auth);
-      user ? console.log(true) : console.log(false);
+      user ? setStatus(true) : setStatus(false);
     });
   }, []);
 
@@ -44,7 +39,7 @@ export const AppProvider = ({ children }) => {
         action,
         toggleAction: () => setAction(!action),
         closeAction: () => setAction(false),
-        // status,
+        status,
       }}
     >
       {children}
