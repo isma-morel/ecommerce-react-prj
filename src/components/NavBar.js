@@ -4,13 +4,28 @@ import {
   IconButton,
   Icon,
   useColorModeValue,
+  Menu,
+  MenuItem,
+  MenuList,
+  MenuButton,
+  MenuDivider,
 } from '@chakra-ui/react';
-import { BsBox, BsPerson, BsSearch, BsBag } from 'react-icons/bs';
+import {
+  BsBox,
+  BsPerson,
+  BsSearch,
+  BsCart2,
+  BsBag,
+  BsArrowBarRight,
+  BsPersonCircle,
+} from 'react-icons/bs';
 import { Link as CustomLink, useNavigate } from 'react-router-dom';
 // import { useRef } from "react";
 import { useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Aside } from './Aside';
+import { auth } from '../firebase/firebaseConfig';
+import { signOut } from 'firebase/auth';
 
 const links = [
   {
@@ -43,6 +58,63 @@ const Links = ({ path, text }) => {
     >
       {text}
     </Link>
+  );
+};
+
+const menuItems = [
+  {
+    text: 'Profile',
+    icon: <BsPersonCircle />,
+    path: 'profile',
+  },
+  {
+    text: 'Buys',
+    icon: <BsBag />,
+    path: '/buys',
+  },
+  {
+    divider: <MenuDivider />,
+    text: 'Log Out',
+    icon: <BsArrowBarRight />,
+    path: '/',
+  },
+];
+
+const MenuItems = ({ text, icon, path, divider }) => {
+  const handlerSignOut = () => {
+    signOut(auth)
+      .then((dt) => console.log(`succefull ${dt}`))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <>
+      {divider}
+      <Link
+        as={CustomLink}
+        onClick={text === 'Log Out' ? handlerSignOut : null}
+        to={path}
+      >
+        <MenuItem
+          _active={{
+            background: useColorModeValue(
+              'rgba(255,255,255, 0.24)',
+              'rgba(255,255,255, 0.24)',
+            ),
+          }}
+          _hover={{
+            background: useColorModeValue(
+              'rgba(255,255,255, 0.16)',
+              'rgba(255,255,255, 0.16)',
+            ),
+          }}
+          icon={icon}
+        >
+          {text}
+        </MenuItem>
+      </Link>
+    </>
   );
 };
 
@@ -124,7 +196,7 @@ export const NavBar = () => {
           <IconButton
             mx="2"
             aria-label="Cart"
-            icon={<BsBag />}
+            icon={<BsCart2 BsBag />}
             _active={{
               background: useColorModeValue(
                 'rgba(255,255,255, 0.24)',
@@ -143,28 +215,71 @@ export const NavBar = () => {
               'rgba(255,255,255, 0.08)',
             )}
           ></IconButton>
-          <IconButton
-            mx="2"
-            aria-label="Person"
-            icon={<BsPerson />}
-            onClick={redirectLogin}
-            _active={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.24)',
-                'rgba(255,255,255, 0.24)',
-              ),
-            }}
-            _hover={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.16)',
-                'rgba(255,255,255, 0.16)',
-              ),
-            }}
-            bg={useColorModeValue(
-              'rgba(255,255,255, 0.08)',
-              'rgba(255,255,255, 0.08)',
-            )}
-          ></IconButton>
+          {status ? (
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<BsPerson />}
+                variant="outline"
+                mx="2"
+                active={{
+                  background: useColorModeValue(
+                    'rgba(255,255,255, 0.24)',
+                    'rgba(255,255,255, 0.24)',
+                  ),
+                }}
+                _hover={{
+                  background: useColorModeValue(
+                    'rgba(255,255,255, 0.16)',
+                    'rgba(255,255,255, 0.16)',
+                  ),
+                }}
+                bg={useColorModeValue(
+                  'rgba(255,255,255, 0.08)',
+                  'rgba(255,255,255, 0.08)',
+                )}
+              />
+              <MenuList
+                bg="rgba(19, 106, 248, 0.8)"
+                boxShadow="lg"
+                backdropFilter="saturate(180%) blur(5px)"
+              >
+                {menuItems.map(({ text, path, divider, icon }, index) => (
+                  <MenuItems
+                    key={index}
+                    text={text}
+                    path={path}
+                    divider={divider}
+                    icon={icon}
+                  />
+                ))}
+              </MenuList>
+            </Menu>
+          ) : (
+            <IconButton
+              mx="2"
+              aria-label="Person"
+              icon={<BsPerson />}
+              onClick={redirectLogin}
+              _active={{
+                background: useColorModeValue(
+                  'rgba(255,255,255, 0.24)',
+                  'rgba(255,255,255, 0.24)',
+                ),
+              }}
+              _hover={{
+                background: useColorModeValue(
+                  'rgba(255,255,255, 0.16)',
+                  'rgba(255,255,255, 0.16)',
+                ),
+              }}
+              bg={useColorModeValue(
+                'rgba(255,255,255, 0.08)',
+                'rgba(255,255,255, 0.08)',
+              )}
+            ></IconButton>
+          )}
         </Box>
       </Box>
       {<Aside />}

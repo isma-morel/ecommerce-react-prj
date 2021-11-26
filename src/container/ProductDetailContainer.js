@@ -12,7 +12,7 @@ export const ProductDetailContainer = () => {
 
   return (
     <>
-      <chakra.section py="80px" w="100%" h="100vh" bgColor="#ededed">
+      <chakra.section pt="100px" w="100%" h="100vh" bgColor="#ededed">
         <Container
           maxW="container.lg"
           borderRadius="10px"

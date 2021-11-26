@@ -9,9 +9,10 @@ import {
   Badge,
   chakra,
 } from '@chakra-ui/react';
-
 import { ItemCount } from './ItemCount';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
+
 export const ProductDetail = ({
   description,
   src,
@@ -20,8 +21,9 @@ export const ProductDetail = ({
   price,
   isNew,
 }) => {
+  const { status } = useApp();
   const navigate = useNavigate();
-  const handleNavigate = () => navigate('/cart');
+  const handleNavigate = () => navigate('/auth');
   return (
     <>
       <Container maxW="container.lg" bg="transparent">
@@ -86,7 +88,9 @@ export const ProductDetail = ({
                   borderRadius: '100%',
                   transition: '.3s ease all',
                 }}
-                onClick={handleNavigate}
+                onClick={
+                  status ? console.log('añadido al carrito') : handleNavigate
+                }
               >
                 <chakra.span
                   fontFamily="fonts.100"
@@ -116,6 +120,9 @@ export const ProductDetail = ({
                   borderRadius: '100%',
                   transition: '.3s ease all',
                 }}
+                onClick={
+                  status ? console.log('añadido al carrito') : handleNavigate
+                }
               >
                 <chakra.span
                   fontFamily="fonts.100"

@@ -12,9 +12,11 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
+
 import { useState } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginView = () => {
   const [credentials, setCredentials] = useState({
@@ -33,12 +35,14 @@ export const LoginView = () => {
       password: value,
     });
   };
+  const navigate = useNavigate();
   const handleLogin = () => {
     const { email, password } = credentials;
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user, userCredential);
+        navigate('/');
       })
       .catch((err) => {
         let errMsg = err.message.replace('Firebase:', '');

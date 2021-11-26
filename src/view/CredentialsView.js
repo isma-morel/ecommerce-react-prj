@@ -1,9 +1,6 @@
 import { Button, chakra, Container, Flex, Icon } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { BsBox } from 'react-icons/bs';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/firebaseConfig';
-import { useApp } from '../context/AppContext';
 
 const options = [
   { path: 'login', text: 'Do you have an account? Login.' },
@@ -29,15 +26,6 @@ const LoginRegister = ({ path, text }) => {
 };
 
 export const CredentialsView = () => {
-  const { status } = useApp();
-  console.log(status);
-  const handlerSignOut = () => {
-    signOut(auth)
-      .then((dt) => console.log(`succefull ${dt}`))
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <>
       <chakra.section minH="100vh" w="100%" bg="brand.100">
@@ -52,7 +40,6 @@ export const CredentialsView = () => {
             {options.map(({ path, text }, index) => (
               <LoginRegister key={index} path={path} text={text} />
             ))}
-            <Button onClick={handlerSignOut}>sign out</Button>
           </Flex>
         </Container>
       </chakra.section>

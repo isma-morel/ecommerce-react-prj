@@ -12,12 +12,13 @@ export const AppProvider = ({ children }) => {
   //ASIDE
   const [action, setAction] = useState(false);
   //auth status
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       user ? setStatus(true) : setStatus(false);
     });
+    console.log(status);
   }, []);
 
   useEffect(() => {
