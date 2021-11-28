@@ -39,10 +39,14 @@ export const LoginView = () => {
   const handleLogin = () => {
     const { email, password } = credentials;
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user, userCredential);
+      .then(() => {
         navigate('/');
+        toast({
+          title: 'Successful Log In',
+          status: 'success',
+          duration: 1000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         let errMsg = err.message.replace('Firebase:', '');

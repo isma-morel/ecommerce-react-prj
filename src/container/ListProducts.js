@@ -3,13 +3,21 @@ import { useEffect, useState } from 'react';
 import { Spinners } from '../components/Spinner';
 import { useApp } from '../context/AppContext';
 import { Products } from '../components/Products';
+import { useLocation } from 'react-router-dom';
 
 export const ListProducts = () => {
-  const [listShow, setListShow] = useState(null);
   const { products } = useApp();
-  useEffect(() => {
-    products && setListShow(products.filter(({ id }) => id < 7));
-  }, [products]);
+  const location = useLocation();
+  const [listShow, setListShow] = useState(
+    location.pathname === '/products' ? products : null,
+  );
+
+  if (location.pathname === '/') {
+    useEffect(() => {
+      products && setListShow(products.filter(({ id }) => id < 7));
+    }, [products]);
+  }
+
   return (
     <Container minW="container.lg">
       <Grid
@@ -25,7 +33,7 @@ export const ListProducts = () => {
         zIndex={'20'}
       >
         {listShow ? (
-          listShow.map(({ name, src, price, id, isNew }) => (
+          listShow.map(({ name, src, price, id, isNew, stock }) => (
             <Products
               key={id}
               name={name}
@@ -33,6 +41,7 @@ export const ListProducts = () => {
               price={price}
               isNew={isNew}
               id={id}
+              stock={stock}
             />
           ))
         ) : (

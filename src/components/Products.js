@@ -13,10 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { BsCart2 } from 'react-icons/bs';
 
-export const Products = ({ src, price, name, isNew, id }) => {
-  const { status } = useApp();
+export const Products = ({ src, price, name, isNew, id, stock }) => {
+  const { status, addToCart } = useApp();
   const navigate = useNavigate();
-  const handleCart = () => navigate('/auth');
+  const handleCart = () => {
+    status ? addToCart(src, price, name, isNew, id, stock) : navigate('/auth');
+  };
   const handleClick = () => navigate(`/products/${id}`);
   return (
     <Flex
@@ -98,9 +100,6 @@ export const Products = ({ src, price, name, isNew, id }) => {
               fontSize={'1.2em'}
             >
               <chakra.span
-                onClick={
-                  status ? console.log('añadido al carrito') : handleCart
-                }
                 cursor="pointer"
                 href={'#'}
                 display={'flex'}
@@ -110,6 +109,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
                 zIndex="50"
               >
                 <Icon
+                  onClick={handleCart}
                   color="black"
                   as={BsCart2}
                   h={7}
@@ -121,10 +121,7 @@ export const Products = ({ src, price, name, isNew, id }) => {
           </Flex>
 
           <Flex justifyContent="space-between" alignContent="center">
-            <Box
-              fontSize="2xl"
-              color={useColorModeValue('gray.800', 'gray.800')}
-            >
+            <Box fontSize="2xl" color="brand.100">
               <Box as="span" color={'gray.600'} fontSize="lg">
                 $
               </Box>

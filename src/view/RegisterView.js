@@ -15,7 +15,7 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
-import { Link as CustomLink } from 'react-router-dom';
+import { Link as CustomLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -32,6 +32,7 @@ export const RegisterView = () => {
     password: '',
   });
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handlerFirstName = ({ target }) => {
     let { value } = target;
@@ -96,10 +97,15 @@ export const RegisterView = () => {
       });
     } else {
       await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
           // Signed in
-          const user = userCredential.user;
-          console.log(user);
+          toast({
+            title: 'Successful Registration. Now, Log In',
+            status: 'success',
+            duration: 1500,
+            isClosable: true,
+          });
+          navigate('/auth/login');
         })
         .catch((error) => {
           let errMsg = error.message.replace('Firebase:', '');

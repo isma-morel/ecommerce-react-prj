@@ -3,7 +3,7 @@ import { Spinner } from '@chakra-ui/react';
 export const Spinners = () => {
   return (
     <Spinner
-      thickness="4px"
+      thickness="5px"
       speed="0.65s"
       emptyColor="gray.200"
       color="blue.500"
@@ -11,7 +11,7 @@ export const Spinners = () => {
       pos={'absolute'}
       left="50%"
       top={'50%'}
-      zIndex={'20'}
+      zIndex={'50'}
     />
   );
 };

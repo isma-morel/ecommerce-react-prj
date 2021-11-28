@@ -9,11 +9,11 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { CartCard } from './CartCard';
 
 export const Aside = () => {
-  let { action, toggleAction } = useApp();
+  let { action, toggleAction, clearCart, cart, total } = useApp();
   const aside = useRef();
-  const list = false;
   return (
     <Box
       ref={aside}
@@ -29,8 +29,8 @@ export const Aside = () => {
       backdropFilter="saturate(180%) blur(5px)"
       fontFamily="fonts.100"
     >
-      <Flex p="1.6rem 1.6rem 1.6rem" overflow="auto" flexDir="column" h="80%">
-        <Flex justifyContent="space-between" alignItems="center">
+      <Flex p="1.6rem 1.6rem 1.6rem" flexDir="column" h="80%">
+        <Flex justifyContent="space-between" alignItems="center" pb="10px">
           <Heading
             color={'white'}
             fontFamily="fonts.100"
@@ -39,14 +39,16 @@ export const Aside = () => {
           >
             Cart{' '}
             <chakra.span fontSize="1rem" color={'white'}>
-              (0)producto
+              ({cart ? cart.length : '0'})producto
             </chakra.span>
           </Heading>
           <Box>
             <Button onClick={toggleAction} mr="10px">
               Cerrar
             </Button>
-            <Button disabled>Borrar Todos</Button>
+            <Button disabled={cart ? null : 'disabled'} onClick={clearCart}>
+              Borrar Todos
+            </Button>
           </Box>
         </Flex>
 
@@ -54,9 +56,26 @@ export const Aside = () => {
           flexGrow="1"
           justifyContent="center"
           alignItems="center"
+          flexDir="column"
           color={'white'}
+          overflow="auto"
+          pt="20px"
         >
-          {list ? 'Hay items' : 'El carrito esta vacio'}
+          {cart
+            ? cart.length !== 0
+              ? cart.map(({ src, price, name, isNew, id, stock }, index) => (
+                  <CartCard
+                    key={index}
+                    src={src}
+                    price={price}
+                    name={name}
+                    isNew={isNew}
+                    id={id}
+                    stock={stock}
+                  />
+                ))
+              : 'El carrito esta vacio'
+            : 'EL carrito esta vacio'}
         </Flex>
       </Flex>
 
@@ -78,10 +97,14 @@ export const Aside = () => {
             marginY="1rem"
             color={'white'}
           >
-            $0.00
+            ${total}
           </Heading>
         </Box>
-        <Button textTransform="uppercase" p="1.6rem 3.2rem">
+        <Button
+          disabled={cart ? null : 'disabled'}
+          textTransform="uppercase"
+          p="1.6rem 3.2rem"
+        >
           Comprar
         </Button>
       </Flex>

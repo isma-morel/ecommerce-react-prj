@@ -9,6 +9,8 @@ import {
   MenuList,
   MenuButton,
   MenuDivider,
+  useToast,
+  Badge,
 } from '@chakra-ui/react';
 import {
   BsBox,
@@ -81,9 +83,20 @@ const menuItems = [
 ];
 
 const MenuItems = ({ text, icon, path, divider }) => {
+  const toast = useToast();
+  const navigate = useNavigate();
   const handlerSignOut = () => {
     signOut(auth)
-      .then((dt) => console.log(`succefull ${dt}`))
+      .then(
+        () =>
+          toast({
+            title: 'Successful Log Out. See you later...',
+            status: 'success',
+            duration: 1000,
+            isClosable: true,
+          }),
+        navigate('/'),
+      )
       .catch((err) => {
         console.log(err);
       });
@@ -130,6 +143,8 @@ export const NavBar = () => {
       };
     }
   });
+  const { cart } = useApp();
+
   const navigate = useNavigate();
   const redirectLogin = () =>
     status ? navigate('/profile') : navigate('/auth');
@@ -193,28 +208,34 @@ export const NavBar = () => {
           {links.map(({ path, text }, index) => (
             <Links key={index} path={path} text={text} />
           ))}
-          <IconButton
-            mx="2"
-            aria-label="Cart"
-            icon={<BsCart2 BsBag />}
-            _active={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.24)',
-                'rgba(255,255,255, 0.24)',
-              ),
-            }}
-            _hover={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.16)',
-                'rgba(255,255,255, 0.16)',
-              ),
-            }}
-            onClick={toggleAction}
-            bg={useColorModeValue(
-              'rgba(255,255,255, 0.08)',
-              'rgba(255,255,255, 0.08)',
+          <Box pos="relative" mx="2" d="inline-flex">
+            <IconButton
+              aria-label="Cart"
+              icon={<BsCart2 BsBag />}
+              _active={{
+                background: useColorModeValue(
+                  'rgba(255,255,255, 0.24)',
+                  'rgba(255,255,255, 0.24)',
+                ),
+              }}
+              _hover={{
+                background: useColorModeValue(
+                  'rgba(255,255,255, 0.16)',
+                  'rgba(255,255,255, 0.16)',
+                ),
+              }}
+              onClick={toggleAction}
+              bg={useColorModeValue(
+                'rgba(255,255,255, 0.08)',
+                'rgba(255,255,255, 0.08)',
+              )}
+            ></IconButton>
+            {cart && (
+              <Badge pos="absolute" top="0" right="0">
+                {cart.length}
+              </Badge>
             )}
-          ></IconButton>
+          </Box>
           {status ? (
             <Menu>
               <MenuButton
