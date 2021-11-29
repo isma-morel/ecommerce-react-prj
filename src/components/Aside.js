@@ -58,22 +58,25 @@ export const Aside = () => {
           alignItems="center"
           flexDir="column"
           color={'white'}
-          overflow="auto"
+          overflowY="auto"
           pt="20px"
         >
           {cart
             ? cart.length !== 0
-              ? cart.map(({ src, price, name, isNew, id, stock }, index) => (
-                  <CartCard
-                    key={index}
-                    src={src}
-                    price={price}
-                    name={name}
-                    isNew={isNew}
-                    id={id}
-                    stock={stock}
-                  />
-                ))
+              ? cart.map(
+                  ({ src, price, name, isNew, id, stock, idCart }, index) => (
+                    <CartCard
+                      key={index}
+                      src={src}
+                      price={price}
+                      name={name}
+                      isNew={isNew}
+                      id={id}
+                      stock={stock}
+                      idCart={idCart}
+                    />
+                  ),
+                )
               : 'El carrito esta vacio'
             : 'EL carrito esta vacio'}
         </Flex>

@@ -20,7 +20,6 @@ export const AppProvider = ({ children }) => {
   const addToCart = (src, price, name, isNew, id, stock) => {
     const cartLocal = JSON.parse(localStorage.getItem('cart'));
     const obj = {
-      cuantity: 1,
       stock: stock,
       src: src,
       price: price,
@@ -32,6 +31,8 @@ export const AppProvider = ({ children }) => {
   };
   const setterCart = (obj) => {
     const newCart = [];
+    obj.idCart = 1;
+    console.log(obj);
     newCart.push(obj);
     setCart([...newCart]);
     localStorage.setItem('cart', JSON.stringify(newCart));
@@ -39,18 +40,19 @@ export const AppProvider = ({ children }) => {
 
   const getCart = (obj) => {
     const cartLocal = JSON.parse(localStorage.getItem('cart'));
+    obj.idCart = cartLocal[cartLocal.length - 1].idCart + 1;
+    console.log(obj);
     cartLocal.push(obj);
     setCart([...cartLocal]);
     localStorage.setItem('cart', JSON.stringify(cartLocal));
   };
 
   const removeItem = (id) => {
-    const objRemoved = cart.filter((obj) => obj.id !== id);
+    const objRemoved = cart.filter((obj) => obj.idCart !== id);
     setCart(objRemoved.length === 0 ? null : objRemoved);
-    localStorage.setItem(
-      'cart',
-      JSON.stringify(objRemoved.length === 0 ? null : objRemoved),
-    );
+    objRemoved.length === 0
+      ? localStorage.removeItem('cart')
+      : localStorage.setItem('cart', JSON.stringify(objRemoved));
   };
 
   const clearCart = () => {
@@ -63,9 +65,6 @@ export const AppProvider = ({ children }) => {
     let totalPrice = 0.0;
     cart ? cart.forEach(({ price }) => (totalPrice += price)) : 0;
     setTotal(parseFloat(totalPrice).toFixed(2));
-    // return () => {
-    //   cleanup;
-    // };
   }, [cart]);
 
   //Status

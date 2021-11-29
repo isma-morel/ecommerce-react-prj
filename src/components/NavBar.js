@@ -3,7 +3,6 @@ import {
   Link,
   IconButton,
   Icon,
-  useColorModeValue,
   Menu,
   MenuItem,
   MenuList,
@@ -75,7 +74,7 @@ const menuItems = [
     path: '/buys',
   },
   {
-    divider: <MenuDivider />,
+    divider: <MenuDivider borderColor="rgba(255,255,255, 0.16)" />,
     text: 'Log Out',
     icon: <BsArrowBarRight />,
     path: '/',
@@ -87,16 +86,16 @@ const MenuItems = ({ text, icon, path, divider }) => {
   const navigate = useNavigate();
   const handlerSignOut = () => {
     signOut(auth)
-      .then(
-        () =>
-          toast({
-            title: 'Successful Log Out. See you later...',
-            status: 'success',
-            duration: 1000,
-            isClosable: true,
-          }),
-        navigate('/'),
-      )
+      .then(() => {
+        toast({
+          title: 'Successful Log Out. See you later...',
+          status: 'success',
+          duration: 1000,
+          isClosable: true,
+        });
+        navigate('/');
+        localStorage.removeItem('cart');
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -110,17 +109,12 @@ const MenuItems = ({ text, icon, path, divider }) => {
         to={path}
       >
         <MenuItem
-          _active={{
-            background: useColorModeValue(
-              'rgba(255,255,255, 0.24)',
-              'rgba(255,255,255, 0.24)',
-            ),
-          }}
+          _active={{ background: 'rgba(255,255,255, 0.24)' }}
           _hover={{
-            background: useColorModeValue(
-              'rgba(255,255,255, 0.16)',
-              'rgba(255,255,255, 0.16)',
-            ),
+            background: 'rgba(255,255,255, 0.16)',
+          }}
+          _focus={{
+            background: 'rgba(255,255,255, 0.06)',
           }}
           icon={icon}
         >
@@ -188,22 +182,11 @@ export const NavBar = () => {
             mx="2"
             aria-label="Search database"
             icon={<BsSearch />}
-            _active={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.24)',
-                'rgba(255,255,255, 0.24)',
-              ),
-            }}
+            _active={{ background: 'rgba(255,255,255, 0.24)' }}
             _hover={{
-              background: useColorModeValue(
-                'rgba(255,255,255, 0.16)',
-                'rgba(255,255,255, 0.16)',
-              ),
+              background: 'rgba(255,255,255, 0.16)',
             }}
-            bg={useColorModeValue(
-              'rgba(255,255,255, 0.08)',
-              'rgba(255,255,255, 0.08)',
-            )}
+            bg="rgba(255,255,255, 0.08)"
           ></IconButton>
           {links.map(({ path, text }, index) => (
             <Links key={index} path={path} text={text} />
@@ -212,23 +195,12 @@ export const NavBar = () => {
             <IconButton
               aria-label="Cart"
               icon={<BsCart2 BsBag />}
-              _active={{
-                background: useColorModeValue(
-                  'rgba(255,255,255, 0.24)',
-                  'rgba(255,255,255, 0.24)',
-                ),
-              }}
+              _active={{ background: 'rgba(255,255,255, 0.24)' }}
               _hover={{
-                background: useColorModeValue(
-                  'rgba(255,255,255, 0.16)',
-                  'rgba(255,255,255, 0.16)',
-                ),
+                background: 'rgba(255,255,255, 0.16)',
               }}
               onClick={toggleAction}
-              bg={useColorModeValue(
-                'rgba(255,255,255, 0.08)',
-                'rgba(255,255,255, 0.08)',
-              )}
+              bg="rgba(255,255,255, 0.08)"
             ></IconButton>
             {cart && (
               <Badge pos="absolute" top="0" right="0">
@@ -244,26 +216,17 @@ export const NavBar = () => {
                 icon={<BsPerson />}
                 variant="outline"
                 mx="2"
-                active={{
-                  background: useColorModeValue(
-                    'rgba(255,255,255, 0.24)',
-                    'rgba(255,255,255, 0.24)',
-                  ),
-                }}
+                _active={{ background: 'rgba(255,255,255, 0.24)' }}
                 _hover={{
-                  background: useColorModeValue(
-                    'rgba(255,255,255, 0.16)',
-                    'rgba(255,255,255, 0.16)',
-                  ),
+                  background: 'rgba(255,255,255, 0.16)',
                 }}
-                bg={useColorModeValue(
-                  'rgba(255,255,255, 0.08)',
-                  'rgba(255,255,255, 0.08)',
-                )}
+                bg="rgba(255,255,255, 0.08)"
+                border="none"
               />
               <MenuList
                 bg="rgba(19, 106, 248, 0.8)"
                 boxShadow="lg"
+                borderColor="rgba(255,255,255, 0.16)"
                 backdropFilter="saturate(180%) blur(5px)"
               >
                 {menuItems.map(({ text, path, divider, icon }, index) => (
@@ -283,22 +246,11 @@ export const NavBar = () => {
               aria-label="Person"
               icon={<BsPerson />}
               onClick={redirectLogin}
-              _active={{
-                background: useColorModeValue(
-                  'rgba(255,255,255, 0.24)',
-                  'rgba(255,255,255, 0.24)',
-                ),
-              }}
+              _active={{ background: 'rgba(255,255,255, 0.24)' }}
               _hover={{
-                background: useColorModeValue(
-                  'rgba(255,255,255, 0.16)',
-                  'rgba(255,255,255, 0.16)',
-                ),
+                background: 'rgba(255,255,255, 0.16)',
               }}
-              bg={useColorModeValue(
-                'rgba(255,255,255, 0.08)',
-                'rgba(255,255,255, 0.08)',
-              )}
+              bg="rgba(255,255,255, 0.08)"
             ></IconButton>
           )}
         </Box>

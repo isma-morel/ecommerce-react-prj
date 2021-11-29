@@ -12,9 +12,9 @@ import { BsDash } from 'react-icons/bs';
 import { Link as CustomLink } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 
-export const CartCard = ({ price, name, isNew, id, stock }) => {
+export const CartCard = ({ price, name, isNew, id, stock, idCart }) => {
   const { removeItem } = useApp();
-  const handleRemove = () => removeItem(id);
+  const handleRemove = () => removeItem(idCart);
   return (
     <>
       <Stack
@@ -66,7 +66,6 @@ export const CartCard = ({ price, name, isNew, id, stock }) => {
             <IconButton
               cursor="pointer"
               as={BsDash}
-              id={id}
               color="brand.100"
               onClick={handleRemove}
             />
