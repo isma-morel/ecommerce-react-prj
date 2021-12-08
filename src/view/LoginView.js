@@ -12,6 +12,7 @@ import {
   useColorModeValue,
   useToast,
   InputRightElement,
+  InputGroup,
 } from '@chakra-ui/react';
 
 import { useState } from 'react';
@@ -19,6 +20,7 @@ import { auth } from '../firebase/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useApp } from '../context/AppContext';
 
 export const LoginView = () => {
   const [remember, setRemember] = useState(false);
@@ -27,6 +29,7 @@ export const LoginView = () => {
     email: '',
     password: '',
   });
+  const { setStatus } = useApp();
   const toast = useToast();
   const handleEmail = ({ target }) => {
     const { value } = target;
@@ -44,6 +47,7 @@ export const LoginView = () => {
     const { email, password } = credentials;
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
+        setStatus(true);
         navigate('/');
         toast({
           title: 'Successful Log In',
@@ -96,25 +100,27 @@ export const LoginView = () => {
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input
-                bg="gray.100"
-                borderColor="gray.300"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="password"
-                onChange={handlePassword}
-                _placeholder={{ color: 'black' }}
-              />
-              <InputRightElement>
-                <Button
-                  variant={'ghost'}
-                  color="black"
-                  onClick={() =>
-                    setShowPassword((showPassword) => !showPassword)
-                  }
-                >
-                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                </Button>
-              </InputRightElement>
+              <InputGroup>
+                <Input
+                  bg="gray.100"
+                  borderColor="gray.300"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="password"
+                  onChange={handlePassword}
+                  _placeholder={{ color: 'black' }}
+                />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    color="black"
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }
+                  >
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
             <Stack spacing={10}>
               <Stack

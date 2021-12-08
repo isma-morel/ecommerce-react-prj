@@ -16,7 +16,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 export const Aside = () => {
-  let { action, toggleAction, clearCart, cart, total } = useApp();
+  let { action, toggleAction, clearCart, cart, total, setGetOrder, getOrder } =
+    useApp();
   const toast = useToast();
   const aside = useRef();
   const navigate = useNavigate();
@@ -37,18 +38,14 @@ export const Aside = () => {
 
     addDoc(collection(db, 'orders'), order)
       .then(
-        (
-          {
-            _key: {
-              path: { segments },
-            },
+        ({
+          _key: {
+            path: { segments },
           },
-          doc,
-        ) => {
-          console.log(segments, doc);
+        }) => {
+          setGetOrder(!getOrder);
           const [, id] = segments;
-          console.log(id);
-          navigate(`/order/${id}`);
+          navigate(`/orders/${id}`);
           clearCart();
           toast({
             title: 'Complete',

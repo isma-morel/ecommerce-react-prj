@@ -1,6 +1,7 @@
 import { BuysView } from '../view/BuysView';
 import { ProfileView } from '../view/ProfileView';
 import { Order } from '../view/Order';
+import { OrdersView } from '../view/OrdersView';
 
 export const privateRoutes = [
   {
@@ -12,7 +13,11 @@ export const privateRoutes = [
     component: <BuysView />,
   },
   {
-    path: 'order/:id',
+    path: 'orders/',
+    component: <OrdersView />,
+  },
+  {
+    path: 'orders/:id',
     component: <Order />,
   },
 ];

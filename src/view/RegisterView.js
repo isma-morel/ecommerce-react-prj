@@ -21,6 +21,7 @@ import { useState } from 'react';
 import { BsEyeSlash, BsEye } from 'react-icons/bs';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebaseConfig';
+import { useApp } from '../context/AppContext';
 const symbolRegx = /[,.-:;]/gi;
 const numberRegx = /[0-9]/gi;
 
@@ -30,10 +31,11 @@ export const RegisterView = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
+    phoneNumber: '',
   });
   const toast = useToast();
   const navigate = useNavigate();
+  const { setStatus } = useApp();
 
   const handlerFirstName = ({ target }) => {
     let { value } = target;
@@ -73,6 +75,7 @@ export const RegisterView = () => {
       });
     }
   };
+
   const handlePassword = ({ target }) => {
     let { value } = target;
     if (value.match(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)) {
@@ -100,6 +103,7 @@ export const RegisterView = () => {
       await createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
           //Signed in
+          setStatus(true);
           console.log(user);
           updateProfile(user.user, {
             displayName: `${firstName} ${lastName}`,
@@ -194,6 +198,7 @@ export const RegisterView = () => {
                 onChange={handleEmail}
               />
             </FormControl>
+
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>

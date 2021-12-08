@@ -14,10 +14,12 @@ export const AppProvider = ({ children }) => {
   //ASIDE
   const [action, setAction] = useState(false);
   //auth status
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(null);
 
-  //orderFunction
-  // const addOrder = (obj) => setOrder(obj)
+  //order
+  const [orders, setOrders] = useState(null);
+  //toggle
+  const [getOrder, setGetOrder] = useState();
 
   //cart
   const addToCart = (src, price, name, isNew, id, stock) => {
@@ -73,7 +75,7 @@ export const AppProvider = ({ children }) => {
   //Status
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      user ? setStatus(true) : setStatus(false);
+      user !== null ? setStatus(true) : setStatus(false);
     });
   }, []);
 
@@ -89,6 +91,29 @@ export const AppProvider = ({ children }) => {
     };
     getData();
   }, []);
+  //orders
+  useEffect(() => {
+    const ordersData = [];
+    const getData = async () => {
+      const queryOrders = await getDocs(collection(db, 'orders'));
+      queryOrders.forEach((doc) => {
+        const {
+          _key: {
+            path: { segments },
+          },
+        } = doc;
+        const orderId = segments[segments.length - 1];
+        const singularDoc = doc.data();
+        singularDoc.orderId = orderId;
+        ordersData.push(singularDoc);
+        const ordersFiltered = ordersData.filter(
+          ({ buyer: { email } }) => email === auth.currentUser.email,
+        );
+        return setOrders(ordersFiltered);
+      });
+    };
+    status && getData();
+  }, [status, getOrder]);
 
   return (
     <ProductContext.Provider
@@ -97,12 +122,16 @@ export const AppProvider = ({ children }) => {
         action,
         toggleAction: () => setAction(!action),
         closeAction: () => setAction(false),
+        setStatus: setStatus,
         status,
         cart: cart,
         addToCart: addToCart,
         clearCart: clearCart,
         removeItem: removeItem,
         total,
+        orders,
+        getOrder,
+        setGetOrder: setGetOrder,
       }}
     >
       {children}

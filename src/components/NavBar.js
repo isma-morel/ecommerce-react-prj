@@ -16,7 +16,7 @@ import {
 import {
   BsBox,
   BsPerson,
-  BsSearch,
+  // BsSearch,
   BsCart2,
   BsBag,
   BsArrowBarRight,
@@ -92,9 +92,11 @@ const menuItems = [
 const MenuItems = ({ text, icon, path, divider }) => {
   const toast = useToast();
   const navigate = useNavigate();
+  const { setStatus } = useApp();
   const handlerSignOut = () => {
     signOut(auth)
       .then(() => {
+        setStatus(false);
         toast({
           title: 'Successful Log Out. See you later...',
           status: 'success',
@@ -186,7 +188,7 @@ export const NavBar = () => {
           fontWeight="bold"
           // ref={navItems}
         >
-          <IconButton
+          {/* <IconButton
             mx="2"
             aria-label="Search database"
             icon={<BsSearch />}
@@ -195,7 +197,7 @@ export const NavBar = () => {
               background: 'rgba(255,255,255, 0.16)',
             }}
             bg="rgba(255,255,255, 0.08)"
-          ></IconButton>
+          ></IconButton> */}
           {links.map(({ path, text }, index) => (
             <Links key={index} path={path} text={text} />
           ))}
