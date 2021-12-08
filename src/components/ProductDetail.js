@@ -20,9 +20,13 @@ export const ProductDetail = ({
   stock,
   price,
   isNew,
+  id,
 }) => {
-  const { status } = useApp();
+  const { status, addToCart } = useApp();
   const navigate = useNavigate();
+  const handleCart = () => {
+    status ? addToCart(src, price, name, isNew, id, stock) : navigate('/auth');
+  };
   const handleNavigate = () => navigate('/auth');
   return (
     <>
@@ -66,7 +70,7 @@ export const ProductDetail = ({
                 ${price}
               </Heading>
             </Box>
-            <Divider bg="gray" />
+            <Divider borderColor="gray.500" />
             <Box>{<ItemCount numberStock={Number(stock)} />}</Box>
             <Box>
               <Button
@@ -98,7 +102,7 @@ export const ProductDetail = ({
                   pos="relative"
                   zIndex="20"
                 >
-                  Comprar
+                  Buy
                 </chakra.span>
               </Button>
               <Button
@@ -120,9 +124,7 @@ export const ProductDetail = ({
                   borderRadius: '100%',
                   transition: '.3s ease all',
                 }}
-                onClick={
-                  status ? console.log('añadido al carrito') : handleNavigate
-                }
+                onClick={handleCart}
               >
                 <chakra.span
                   fontFamily="fonts.100"
@@ -130,7 +132,7 @@ export const ProductDetail = ({
                   pos="relative"
                   zIndex="20"
                 >
-                  Añadir al carrito
+                  Add to Cart
                 </chakra.span>
               </Button>
             </Box>

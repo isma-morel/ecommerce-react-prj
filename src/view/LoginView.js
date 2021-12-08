@@ -11,14 +11,18 @@ import {
   Heading,
   useColorModeValue,
   useToast,
+  InputRightElement,
 } from '@chakra-ui/react';
 
 import { useState } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 export const LoginView = () => {
+  const [remember, setRemember] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -95,11 +99,22 @@ export const LoginView = () => {
               <Input
                 bg="gray.100"
                 borderColor="gray.300"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="password"
                 onChange={handlePassword}
                 _placeholder={{ color: 'black' }}
               />
+              <InputRightElement>
+                <Button
+                  variant={'ghost'}
+                  color="black"
+                  onClick={() =>
+                    setShowPassword((showPassword) => !showPassword)
+                  }
+                >
+                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
+              </InputRightElement>
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -107,7 +122,12 @@ export const LoginView = () => {
                 align={'start'}
                 justify={'space-between'}
               >
-                <Checkbox borderColor="gray.300" iconColor="green">
+                <Checkbox
+                  colorScheme="twitter"
+                  borderColor="gray.300"
+                  iconColor="green.200"
+                  onClick={() => setRemember(!remember)}
+                >
                   Remember me
                 </Checkbox>
                 <Link color={'blue.400'}>Forgot password?</Link>

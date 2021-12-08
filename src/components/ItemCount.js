@@ -20,9 +20,9 @@ export const ItemCount = ({ numberStock }) => {
     } else {
       toast({
         title: 'Error',
-        description: 'No puedes agregar más si no hay stock',
+        description: 'You can`t add more than the available stock',
         status: 'error',
-        duration: '800',
+        duration: '1000',
         isClosable: 'true',
       });
     }
@@ -34,9 +34,9 @@ export const ItemCount = ({ numberStock }) => {
     } else {
       toast({
         title: 'Error',
-        description: 'No puedes comprar menos de 1 objeto',
+        description: 'You can`t buy less than one object',
         status: 'error',
-        duration: '800',
+        duration: '1000',
         isClosable: 'true',
       });
     }
@@ -45,10 +45,10 @@ export const ItemCount = ({ numberStock }) => {
   return (
     <>
       <Heading as="h3" fontSize="1.3rem" fontFamily="fonts.100">
-        Selecciona cuantos items quieres comprar:
+        How many do items want to buy?
       </Heading>
       <Badge color="white" my="15px" bg="brand.100" borderRadius="5px">
-        Stock Disponible: {stock}
+        Available Stock: {stock}
       </Badge>
       <Flex mb="10px" alignItems="center" justifyContent="flex-start">
         <Button

@@ -16,6 +16,9 @@ export const AppProvider = ({ children }) => {
   //auth status
   const [status, setStatus] = useState(false);
 
+  //orderFunction
+  // const addOrder = (obj) => setOrder(obj)
+
   //cart
   const addToCart = (src, price, name, isNew, id, stock) => {
     const cartLocal = JSON.parse(localStorage.getItem('cart'));

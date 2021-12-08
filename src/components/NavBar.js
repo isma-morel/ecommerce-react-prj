@@ -10,6 +10,8 @@ import {
   MenuDivider,
   useToast,
   Badge,
+  Avatar,
+  Button,
 } from '@chakra-ui/react';
 import {
   BsBox,
@@ -20,6 +22,7 @@ import {
   BsArrowBarRight,
   BsPersonCircle,
 } from 'react-icons/bs';
+import { IoTicketOutline } from 'react-icons/io5';
 import { Link as CustomLink, useNavigate } from 'react-router-dom';
 // import { useRef } from "react";
 import { useEffect } from 'react';
@@ -69,9 +72,14 @@ const menuItems = [
     path: 'profile',
   },
   {
-    text: 'Buys',
+    text: 'My Buys',
     icon: <BsBag />,
     path: '/buys',
+  },
+  {
+    text: 'My Orders',
+    icon: <IoTicketOutline />,
+    path: '/orders',
   },
   {
     divider: <MenuDivider borderColor="rgba(255,255,255, 0.16)" />,
@@ -194,7 +202,7 @@ export const NavBar = () => {
           <Box pos="relative" mx="2" d="inline-flex">
             <IconButton
               aria-label="Cart"
-              icon={<BsCart2 BsBag />}
+              icon={<BsCart2 />}
               _active={{ background: 'rgba(255,255,255, 0.24)' }}
               _hover={{
                 background: 'rgba(255,255,255, 0.16)',
@@ -211,9 +219,8 @@ export const NavBar = () => {
           {status ? (
             <Menu>
               <MenuButton
-                as={IconButton}
+                as={auth.currentUser.photoURL ? Button : IconButton}
                 aria-label="Options"
-                icon={<BsPerson />}
                 variant="outline"
                 mx="2"
                 _active={{ background: 'rgba(255,255,255, 0.24)' }}
@@ -222,7 +229,15 @@ export const NavBar = () => {
                 }}
                 bg="rgba(255,255,255, 0.08)"
                 border="none"
-              />
+              >
+                {auth.currentUser.photoURL ? (
+                  <Avatar size="sm" src={auth.currentUser.photoURL} />
+                ) : (
+                  <Icon as={BsPerson} />
+                )}
+
+                {console.log(auth.currentUser.photoURL)}
+              </MenuButton>
               <MenuList
                 bg="rgba(19, 106, 248, 0.8)"
                 boxShadow="lg"

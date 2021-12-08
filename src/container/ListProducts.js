@@ -5,18 +5,38 @@ import { useApp } from '../context/AppContext';
 import { Products } from '../components/Products';
 import { useLocation } from 'react-router-dom';
 
-export const ListProducts = () => {
+export const ListProducts = ({ value }) => {
   const { products } = useApp();
   const location = useLocation();
-  const [listShow, setListShow] = useState(
-    location.pathname === '/products' ? products : null,
-  );
+  const [listShow, setListShow] = useState(null);
+  const [listShowFiltered, setListShowFiltered] = useState([]);
+  console.log(value);
+  useEffect(() => {
+    location.pathname === '/'
+      ? products && setListShow(products.filter(({ id }) => id < 7))
+      : setListShow(products);
+  }, [products]);
 
-  if (location.pathname === '/') {
-    useEffect(() => {
-      products && setListShow(products.filter(({ id }) => id < 7));
-    }, [products]);
-  }
+  useEffect(() => {
+    const handleFiltro = (value) => {
+      const regx = /^[0-9]+$/;
+      if (value.match(regx)) {
+        const lF = listShow.filter(({ price }) =>
+          price.toString().startsWith(value),
+        );
+        console.log(lF);
+        setListShowFiltered(lF);
+      } else {
+        const lF = listShow.filter(({ name }) =>
+          name.toLowerCase().includes(value.toLowerCase()),
+        );
+        console.log(lF);
+        setListShowFiltered(lF);
+      }
+      console.log(listShowFiltered);
+    };
+    value ? handleFiltro(value) : null;
+  }, [value]);
 
   return (
     <Container minW="container.lg">
@@ -32,7 +52,19 @@ export const ListProducts = () => {
         pos={'relative'}
         zIndex={'20'}
       >
-        {listShow ? (
+        {value ? (
+          listShowFiltered.map(({ name, src, price, id, isNew, stock }) => (
+            <Products
+              key={id}
+              name={name}
+              src={src}
+              price={price}
+              isNew={isNew}
+              id={id}
+              stock={stock}
+            />
+          ))
+        ) : listShow ? (
           listShow.map(({ name, src, price, id, isNew, stock }) => (
             <Products
               key={id}

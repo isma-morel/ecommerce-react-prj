@@ -8,7 +8,7 @@ export const Home = () => {
       <Carrousel />
       <Box bgColor="white">
         <Box textAlign="start" px="10%" pt="90px" pb="50px">
-          <Heading fontSize="50px" color="brand.300" mb="20px">
+          <Heading as="h4" fontSize="50px" color="brand.300" mb="20px">
             Our <chakra.span color="brand.100">Products</chakra.span>
           </Heading>
           <Text color="brand.300" fontSize="1.1rem">

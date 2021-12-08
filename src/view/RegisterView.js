@@ -14,11 +14,12 @@ import {
   useColorModeValue,
   Link,
   useToast,
+  Icon,
 } from '@chakra-ui/react';
 import { Link as CustomLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { BsEyeSlash, BsEye } from 'react-icons/bs';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebaseConfig';
 const symbolRegx = /[,.-:;]/gi;
 const numberRegx = /[0-9]/gi;
@@ -97,15 +98,21 @@ export const RegisterView = () => {
       });
     } else {
       await createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          // Signed in
+        .then((user) => {
+          //Signed in
+          console.log(user);
+          updateProfile(user.user, {
+            displayName: `${firstName} ${lastName}`,
+          })
+            .then(() => console.log('update!'))
+            .catch((err) => console.log(err));
           toast({
-            title: 'Successful Registration. Now, Log In',
+            title: 'Successful Registration and Logged',
             status: 'success',
             duration: 1500,
             isClosable: true,
           });
-          navigate('/auth/login');
+          navigate('/');
         })
         .catch((error) => {
           let errMsg = error.message.replace('Firebase:', '');
@@ -204,8 +211,10 @@ export const RegisterView = () => {
                     onClick={() =>
                       setShowPassword((showPassword) => !showPassword)
                     }
+                    borderColor="gray.200"
+                    fontSize="20px"
                   >
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    <Icon as={showPassword ? BsEye : BsEyeSlash} />
                   </Button>
                 </InputRightElement>
               </InputGroup>

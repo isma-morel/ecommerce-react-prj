@@ -8,12 +8,67 @@ import {
   chakra,
   Text,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
 import { CartCard } from './CartCard';
+import { auth, db } from '../firebase/firebaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 export const Aside = () => {
   let { action, toggleAction, clearCart, cart, total } = useApp();
+  const toast = useToast();
   const aside = useRef();
+  const navigate = useNavigate();
+  const handleBuy = () => {
+    const {
+      currentUser: { displayName, email, phoneNumber, photoURL },
+    } = auth;
+    const order = {
+      buyer: {
+        name: displayName,
+        phone: phoneNumber,
+        email: email,
+        photo: photoURL,
+      },
+      items: [...cart],
+      total: total,
+    };
+
+    addDoc(collection(db, 'orders'), order)
+      .then(
+        (
+          {
+            _key: {
+              path: { segments },
+            },
+          },
+          doc,
+        ) => {
+          console.log(segments, doc);
+          const [, id] = segments;
+          console.log(id);
+          navigate(`/order/${id}`);
+          clearCart();
+          toast({
+            title: 'Complete',
+            description: 'The order was generated correctly',
+            status: 'success',
+            duration: '1500',
+            isClosable: 'true',
+          });
+        },
+      )
+      .catch((err) =>
+        toast({
+          title: 'Error',
+          description: err,
+          status: 'error',
+          duration: '1000',
+          isClosable: 'true',
+        }),
+      );
+  };
   return (
     <Box
       ref={aside}
@@ -39,15 +94,15 @@ export const Aside = () => {
           >
             Cart{' '}
             <chakra.span fontSize="1rem" color={'white'}>
-              ({cart ? cart.length : '0'})producto
+              ({cart ? cart.length : '0'}) products
             </chakra.span>
           </Heading>
           <Box>
             <Button onClick={toggleAction} mr="10px">
-              Cerrar
+              Close
             </Button>
             <Button disabled={cart ? null : 'disabled'} onClick={clearCart}>
-              Borrar Todos
+              Clear All
             </Button>
           </Box>
         </Flex>
@@ -77,8 +132,8 @@ export const Aside = () => {
                     />
                   ),
                 )
-              : 'El carrito esta vacio'
-            : 'EL carrito esta vacio'}
+              : 'The cart is empty'
+            : 'The cart is empty'}
         </Flex>
       </Flex>
 
@@ -107,8 +162,9 @@ export const Aside = () => {
           disabled={cart ? null : 'disabled'}
           textTransform="uppercase"
           p="1.6rem 3.2rem"
+          onClick={handleBuy}
         >
-          Comprar
+          Buy
         </Button>
       </Flex>
     </Box>

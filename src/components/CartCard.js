@@ -26,6 +26,8 @@ export const CartCard = ({ price, name, isNew, id, stock, idCart }) => {
         pos="relative"
         color="black"
         w="80%"
+        className="hola"
+        id="2"
       >
         {isNew ? (
           <Icon
@@ -65,8 +67,8 @@ export const CartCard = ({ price, name, isNew, id, stock, idCart }) => {
           <Flex direction={{ base: 'column', md: 'row' }}>
             <IconButton
               cursor="pointer"
-              as={BsDash}
               color="brand.100"
+              icon={<BsDash />}
               onClick={handleRemove}
             />
           </Flex>

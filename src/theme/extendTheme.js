@@ -10,19 +10,15 @@ const colors = {
     600: '#fff',
   },
 };
+
 const fonts = {
   fonts: {
     100: 'DM Sans',
     200: 'Inter',
   },
 };
-const config = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
-};
 
 export const theme = extendTheme({
-  config,
   colors,
   fonts,
 });
